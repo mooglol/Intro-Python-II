@@ -1,5 +1,6 @@
+import textwrap
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -38,8 +39,26 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player = Player("Sean", room['outside'])
+
+done = False
 
 # Write a loop that:
+while not done:
+    print(player.location)
+    for line in textwrap.wrap(player.location.print_description()):
+        print(line)
+    print("\n")
+
+
+    command = input("What do you want to do?")
+
+    if command in ['n', 's', 'e', 'w']:
+        player.location = player.move_to(command, player.location)
+        continue
+
+    if command == 'q' or command == 'quit':
+        done = True
 #
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
